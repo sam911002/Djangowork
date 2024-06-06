@@ -1,0 +1,90 @@
+
+.stock_title {
+    width: 100%;
+    margin: 30px 0 20px 0;
+    border-bottom: 1px solid black;
+}
+.content{
+    width: 80%;
+    margin: auto;
+}
+.nothing{
+    width: 100%;
+    height: 400px;
+    display: flex;
+  
+}
+.stock_title h2{
+    display: inline;
+    font-size: 35px;
+    font-weight: bold;
+}
+.stock_title h3{
+    display: inline;
+    font-size: 18px;
+    color: rgb(96, 96, 96);
+}
+.time{
+    float: right;
+}
+.stock_table{
+    
+    width: 98%;
+    margin: 40px auto;
+
+    background-color: rgb(234, 239, 244);
+    border-radius: 10px;
+    overflow: auto;
+    transition: 200ms;
+
+}
+.stock_table:hover{
+    transition: 200ms;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+   
+}
+.stock_table table{
+    width: 100% ;
+
+    height: 50px;
+    
+}
+
+
+
+.stock_table thead tr th{
+    height: 50px;
+    background-color: rgb(54, 23, 82);
+    color: white;   
+}
+
+.title1[colspan="2"] {
+    width: 300px; 
+}
+.stock_table th,
+.stock_table td{
+    border-bottom: 1px solid rgb(196, 196, 196);    
+    padding: 20px;
+    white-space: nowrap;
+}   
+.stock_table th{
+    padding-left: 10px;
+}
+.chart{
+    margin: auto;
+    width: 98%;
+    padding: 20px 10px;
+    background-color: rgb(234, 239, 244);
+    border-radius: 20px;
+    transition: 200ms;
+
+}
+.chart:hover{
+    transition: 200ms;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+}
+.chart ._year_select,
+.chart ._month_select{
+    margin: 20px;
+   
+}

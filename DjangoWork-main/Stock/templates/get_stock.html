@@ -1,0 +1,131 @@
+﻿{% extends "base/base.html" %}
+{% load static %}
+{% block hend %}
+<link rel="stylesheet" href="{%static 'css/styles_get_stock.css' %}">
+{% endblock hend %}
+{% block mainBody %}
+<div class="content">
+    {% if error_message != None %}
+        <h1 style="text-align: center;">查無此股票</h1>
+    {% else %}
+    <div class="stock_title">
+        <h2 class="fullname">{{Data.fullname}}</h2>
+        <br>
+        <h3 class="stock_name">{{Data.name}}</h3>
+        <h3 class="stock_symbol">{{Data.stock_symbol}}</h3>
+        <h3 class="time">{{Data.time}}</h3>
+    </div>
+    
+    <div class="stock_table floatHeader">
+        <table>
+            <thead>
+                <tr>
+                  <th class="title1" scope="col" colspan="2">基礎資訊</th>
+                  <th class="title2" scope="col" colspan="6">四大買賣點</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row"> 開盤價</th>
+                    <td>{{Data.open}}</td>
+                    <th scope="row">最佳買入價(best bid price)</th>
+                    {% for i in Data.best_bit_price %}
+                    <td>{{ i }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">最高價</th>
+                    <td>{{Data.high}}</td>
+                    <th scope="row">最佳買入數量(best bid volume)</th>
+                    {% for i in Data.best_bit_volume %}
+                    <td>{{ i }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row">最低價</th>
+                    <td>{{Data.low}}</td>
+                    <th scope="row">最佳賣出價(best ask price)</th>
+                    {% for i in Data.best_ask_price %}
+                    <td>{{ i }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <th scope="row">最佳賣出數量(best ask volume)</th>
+                    {% for i in Data.best_ask_volume %}
+                    <td>{{ i }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% if Data.stock_back %}
+    <div class="chart">
+        <label for="chartType" class="form-label">輸入圖表類型</label>
+        <select class="form-select select_len" id="chartType" aria-label="Default select example">
+            <option value="0">請選擇圖表</option>
+            <option value="1">年表</option>
+            <option value="2">月表</option>
+        </select>
+
+        <div class="_year_select">
+            <label for="year" class="form-label">選擇年份</label>
+            <select class="form-select" id="year" name="year">
+                {% for year in Data.all_year %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="_month_select">
+            <label for="month" class="form-label">選擇月份</label>
+            <select class="form-select" id="month" name="month">
+                {% for month in Data.all_month %}
+                <option value="{{ month }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button id="showChartBtn" type="button">顯示圖表</button>
+    </div>
+    {% endif %}
+    {% endif %}
+    <div class="nothing"></div>
+</div>
+
+<script src="{%static 'js/vanilla-tilt.js' %}"></script>
+<script src="{%static 'js/tilt_.js' %}"></script>
+{% if error_message == None %}
+<script>
+    const all_month = {{ Data.all_month|safe }};
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const showChartBtn = document.getElementById('showChartBtn');
+        if (showChartBtn) {
+            showChartBtn.addEventListener('click', function () {
+                const chartType = document.getElementById('chartType').value;
+                const year = document.getElementById('year').value;
+                const month = document.getElementById('month').value;
+                fetchHistoricalData(chartType, year,    );
+            });
+        }
+    });
+
+    function fetchHistoricalData(chartType, year, month) {
+        const stockSymbol = "{{ Data.stock_symbol }}";
+        let url = `/historical_data?stock_symbol=${stockSymbol}&year=${year}`;
+        if (chartType === "2") {
+            url += `&month=${month}`;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Process and display the chart data here
+                console.log(data);
+            });
+    }
+</script>
+<script src="{%static 'js/select_get_stock.js' %}"></script>
+{% endif %}
+{% endblock mainBody %}

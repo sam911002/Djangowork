@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block hend %}
+<link rel="stylesheet" href="{%static 'css/styles_index.css' %}" >
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>
+{% endblock hend %}
+
+{% block mainBody %}
+
+<div class="Search" >
+    <h1 class="Scroll">股票查詢系統</h1>
+    <form class="Search_box" method="GET" action="GS/">
+        <input type="text" id="stock_symbol" name="stock_symbol" placeholder="請輸入股票代號" required>
+        <button type="submit">Search</button>
+    </form>
+    <div class="slider">
+        <div>
+            <img src="{% static "image/1301.jpg" %}">
+        </div>
+        <div>
+            <img src="{% static "image/1303.jpg" %}">
+        </div>
+        <div>
+            <img src="{% static "image/2308.jpg" %}">
+        </div>
+    </div>
+</div>  
+<div class="center_col">
+    <div class="stock_title">
+        <h2>股票總覽<button type="button" class="btn btn_renew d-flex btn-sm">更新</button></h2>
+    </div>
+    <div class="stock_list">
+
+        {% for key, value in Data.items %}
+        <div class="card" style="width: 14rem; ">
+            <img src="{% static value.image %}" class="card-img-top" alt="Company Image">
+            <div class="card-body">
+            <h5 class="card-title">{{ value.title }}</h5>
+            <p class="card-text">{{ value.description }}</p>
+            <a href="{% url 'search' %}{{ value.url }}" class="btn btn-light ">歷年圖表</a>
+            </div>  
+        </div>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% endfor %}
+    </div>
+    <div class="stock_title">
+        <h2>第六組 製作成員 </h2>
+    </div>
+    <ul class="member_list">
+        <li class="Scroll">B1043051 張嘉翔 負責圖表網頁</li>
+        <li class="Scroll">B1043040 戴佑丞 負責圖表網頁</li>
+        <li class="Scroll">B1031059 官振新 負責後端資料庫</li>
+        <li class="Scroll">B1143016 吳享恩 負責主要網頁、網頁美化</li>
+        <li class="Scroll">B1143018 王政翔 負責即時資訊</li>
+    </ul>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+<script src="{%static 'js/slick.js' %}"></script>
+<script src="{%static 'js/btn_index.js' %}"></script>
+
+{% endblock mainBody %}

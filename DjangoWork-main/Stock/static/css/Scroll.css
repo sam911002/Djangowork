@@ -1,0 +1,10 @@
+.Scroll.ed{
+    opacity: 1; 
+    transition: 1000ms;
+    transform: translateY(0em) scale(1);
+}
+.Scroll{
+    transition: 1000ms;
+    opacity: 0;
+    transform: translateY(-20px) scale(1.1);
+}
